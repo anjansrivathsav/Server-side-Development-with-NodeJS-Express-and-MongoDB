@@ -1,0 +1,3 @@
+## Synopsis
+
+This is the assignments repository for Coursera's Server-side Development with NodeJS, Express and MongoDB. Assignments are classified into their respective directories and you can assignment instructions in the pdf file in each directory. In order to run the assignments you will need Node JS and Angular CLI installed. After installation, go into the folder conFusion and run npm install to install all the depedencies. Please note this repository is only for the information/audit purposes, don't use it to copy the assignments if you're also taking the course.
