@@ -18,6 +18,9 @@ mongoose.Promise = require('bluebird');
 
 const Dishes = require('./models/dishes');
 
+var passport = require('passport');
+var authenticate = require('./authenticate');
+
 // Connection URL
 const url = 'mongodb://localhost:27017/conFusion';
 const connect = mongoose.connect(url, {
@@ -40,7 +43,7 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser('12345-67890-09876-54321'));
+//app.use(cookieParser('12345-67890-09876-54321'));
 
 app.use(session({
   name: 'session-id',
@@ -50,26 +53,23 @@ app.use(session({
   store: new FileStore()
 }));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/', index);
 app.use('/users', users);
 
 function auth (req, res, next) {
-    console.log(req.session);
+  console.log(req.user);
 
-  if(!req.session.user) {
-      var err = new Error('You are not authenticated!');
-      err.status = 403;
-      return next(err);
+  if (!req.user) {
+    var err = new Error('You are not authenticated!');
+    res.setHeader('WWW-Authenticate', 'Basic');                          
+    err.status = 401;
+    next(err);
   }
   else {
-    if (req.session.user === 'authenticated') {
-      next();
-    }
-    else {
-      var err = new Error('You are not authenticated!');
-      err.status = 403;
-      return next(err);
-    }
+        next();
   }
 }
 
