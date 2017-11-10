@@ -9,45 +9,54 @@
     "mixins": [
       "loopback/common/mixins",
       "loopback/server/mixins",
+      "../node_modules/loopback-ds-timestamp-mixin",
       "../common/mixins",
       "./mixins"
     ]
   },
   "User": {
-    "dataSource": "db"
+    "dataSource": "MongoDB"
   },
   "AccessToken": {
     "dataSource": "db",
     "public": false
   },
   "ACL": {
-    "dataSource": "db",
+    "dataSource": "MongoDB",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "db",
+    "dataSource": "MongoDB",
     "public": false,
     "options": {
       "strictObjectIDCoercion": true
     }
   },
   "Role": {
-    "dataSource": "db",
+    "dataSource": "MongoDB",
     "public": false
   },
   "dishes": {
-    "dataSource": "db",
+    "dataSource": "MongoDB",
     "public": true
   },
   "promotions": {
-    "dataSource": "db",
+    "dataSource": "MongoDB",
     "public": true
   },
   "leaders": {
-    "dataSource": "db",
+    "dataSource": "MongoDB",
     "public": true
   },
   "Customer": {
+    "dataSource": "MongoDB",
+    "public": true
+  },
+  "Comments": {
+    "dataSource": "MongoDB",
+    "public": true
+  },
+  "Favorites": {
     "dataSource": "MongoDB",
     "public": true
   }
