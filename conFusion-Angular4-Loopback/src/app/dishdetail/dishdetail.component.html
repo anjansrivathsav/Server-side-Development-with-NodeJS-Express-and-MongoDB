@@ -1,0 +1,61 @@
+<div class="container"
+    fxLayout="row"
+    fxLayout.sm="column"
+    fxLayout.xs="column"
+    fxLayoutAlign.gt-md="space-around center"
+    fxLayoutGap="10px" 
+    fxLayoutGap.xs="0">
+
+  <div fxFlex="40" *ngIf="dish" [@visibility]="visibility" [@expand]>
+    <md-card>
+      <md-card-header>
+        <md-card-title>
+          <h3>{{dish.name | uppercase}}</h3>
+        </md-card-title>
+      </md-card-header>
+      <img md-card-image src="{{BaseURL + '/' + dish.image}}" alt={{dish.name}}>
+      <md-card-content>
+        <p>{{dish.description}}
+        </p>
+      </md-card-content>
+      <md-card-actions>
+        <button md-button (click)="goBack()"><span class="fa fa-arrow-left fa-lg"></span></button>
+        <button md-button (click)="addToFavorites()"><span class="{{favorite ? 'fa fa-heart fa-lg' : 'fa fa-heart-o fa-lg'}}"></span></button>
+        <button md-button><span class="fa fa-share fa-lg"></span></button>
+      </md-card-actions>
+    </md-card>
+  </div>
+
+  <div fxFlex="40" *ngIf="dish" [@visibility]="visibility" [@expand]>
+    <md-list>
+      <h3>Comments</h3>
+      <md-list-item *ngFor="let comment of dish.comments">
+        <h4 md-line> {{comment.comment}} </h4>
+        <p md-line> {{comment.rating}} Stars</p>
+        <p md-line>
+          <span> -- {{comment.customer.firstname ? comment.customer.firstname : comment.customer.username}} {{comment.customer.lastname}} {{comment.date | date }} </span>
+        </p>
+      </md-list-item>
+    </md-list>
+    <form novalidate [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+      <p>
+        <md-slider min="1" max="5" step="1" thumbLabel tickInterval="1" name="rating" formControlName="rating"></md-slider>
+        <md-input-container class="full-width" dividerColor="{{(formErrors.comment) ? 'warn' : 'primary'}}">
+          <textarea mdInput formControlName="comment" placeholder="Your Comment" rows=12></textarea>
+          <md-hint>
+            <span [hidden]="!(formErrors.comment)">
+                      {{formErrors.comment}}</span>
+          </md-hint>
+        </md-input-container>
+      </p>
+      <button type="submit" md-button class="background-primary text-floral-white" [disabled]="commentForm.invalid">Submit</button>
+    </form>
+  </div>
+  <div [hidden]="dish || errMess">
+    <md-spinner></md-spinner><h4>Loading . . . Please Wait</h4>
+  </div>
+  <div *ngIf="errMess">
+    <h2>Error</h2>
+    <h4>{{errMess}}</h4>
+  </div>
+</div>
