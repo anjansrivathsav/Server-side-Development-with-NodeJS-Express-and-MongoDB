@@ -1,35 +1,19 @@
 {
-  "name": "leaders",
-  "base": "PersistedModel",
+  "name": "Customer",
+  "base": "User",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "name": {
-      "type": "string",
-      "required": true
+    "firstname": {
+      "type": "string"
+    },
+    "lastname": {
+      "type": "string"
     },
     "image": {
-      "type": "string",
-      "required": true
-    },
-    "designation": {
-      "type": "string",
-      "required": true
-    },
-    "abbr": {
-      "type": "string",
-      "required": true
-    },
-    "description": {
-      "type": "string",
-      "required": true
-    },
-    "featured": {
-      "type": "boolean",
-      "required": true,
-      "default": false
+      "type": "string"
     }
   },
   "validations": [],
@@ -50,7 +34,7 @@
     {
       "accessType": "EXECUTE",
       "principalType": "ROLE",
-      "principalId": "admin",
+      "principalId": "$everyone",
       "permission": "ALLOW",
       "property": "create"
     }
